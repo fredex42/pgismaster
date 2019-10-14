@@ -23,8 +23,11 @@ You'll need Go 1.11 or later available to compile (but not to run).
 You can either head over to https://golang.org/doc/install#install or use docker (e.g. `docker run --rm golang:1.12-alpine3.9`)
 
 Check out the sources: `git clone https://github.com/fredex42/pgismaster`
+
 Compile it for Linux: `GOOS=linux go build`
+
 Or for Windows: `GOOS=windows go build`
+
 Or for Mac: `GOOS=darwin go build`
 
 etc.
