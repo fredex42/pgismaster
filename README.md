@@ -15,7 +15,45 @@ This allows it to be run in the "script" parameter of keepalived to allow only a
 
 ## How do I run it?
 
-Simply grab the compiled executable and deploy it to your server.  Then, call it in your script or config file.
+Simply grab the compiled executable and copy it to your server.  Then, call it in your script or config file.
+
+For example, in `keepalived.conf`:
+
+```
+global_defs {
+	enable_script_security
+	script_user postgres    ###server is configured to allow local access here
+}
+
+vrrp_script chk_postgres {               # Requires keepalived-1.1.13
+        script "/usr/local/bin/pgismaster"
+        interval 10                      # check every 10 seconds
+        fall 2       # require 2 failures for KO
+        rise 2       # require 2 successes for OK
+}
+
+vrrp_instance VI_1 {
+        interface ens192
+        virtual_router_id 42
+        priority 150
+        state MASTER
+        virtual_ipaddress {
+            1.2.3.4
+        }
+        track_script {
+            chk_postgres
+        }
+}
+```
+
+Or just run from the commandline:
+```
+$ /usr/local/bin/pgismaster
+2019/10/14 16:45:31 pgismaster, Andy Gallagher 2019. See https://github.com/fredex42/pgismaster for details.
+2019/10/14 16:45:31 Server is a standby
+$ echo $?
+1
+```
 
 ## How do I compile it?
 
