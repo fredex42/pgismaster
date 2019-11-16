@@ -9,7 +9,7 @@ This is done by checking the internal flag "pg_is_in_recovery();"; an active sla
 state and a master is not.
 
 - If run on a slave, then a message is printed to indicate that it is a slave and an exit status of 1 is returned.
-- If run on a master, then a message is printed to indicate that it is a master and an exit status of 1 is returned.
+- If run on a master, then a message is printed to indicate that it is a master and an exit status of 0 is returned.
 
 This allows it to be run in the "script" parameter of keepalived to allow only a master to assert a VIP.
 
